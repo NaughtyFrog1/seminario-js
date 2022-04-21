@@ -1,0 +1,37 @@
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: 'Noto Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+}
+
+#root {
+  background-color: #fff;
+  padding: 4rem;
+  max-width: 600px;
+  height: 600px;
+  border-radius: 1em;
+  box-shadow: 0 1em 2.5em -1em rgba(0, 0, 0, 0.15);
+}
+
+.site-title {
+  margin-top: 0;
+}
+
+#game-form > label {
+  font-weight: 700;
+}
