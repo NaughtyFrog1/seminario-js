@@ -1,18 +1,14 @@
 import { createElement } from './helpers.js'
 
 const URL_EPISODES = 'https://rickandmortyapi.com/api/episode?page='
-const PAGES = 3
-
-let currentEpisode = 1
 
 function handlePaginationClick(e, episodesNode) {
   document
     .querySelector('.pagination__btn--selected')
     .classList.remove('pagination__btn--selected')
 
-  currentEpisode = e.target.textContent
   e.target.classList.add('pagination__btn--selected')
-  renderEpisodes(currentEpisode, episodesNode)
+  renderEpisodes(e.target.textContent, episodesNode)
 }
 
 function renderEpisode({ name, air_date, episode }, parentNode) {
@@ -45,14 +41,17 @@ async function renderEpisodes(page, parentNode) {
   data.results.forEach((episodeData) => renderEpisode(episodeData, ul))
 }
 
-function renderPagination(episodesNode, curr, parentNode) {
+async function renderPagination(episodesNode, curr, parentNode) {
+  const resp = await fetch(URL_EPISODES + curr)
+  const { info: { pages }} = await resp.json()
+
   const pagination = createElement(
     'div',
     { className: 'pagination' },
     parentNode
   )
 
-  for (let i = 1; i <= PAGES; i++) {
+  for (let i = 1; i <= pages; i++) {
     createElement(
       'button',
       {
@@ -68,9 +67,5 @@ function renderPagination(episodesNode, curr, parentNode) {
 }
 
 const episodesRoot = createElement('div', {}, document.getElementById('root'))
-renderEpisodes(currentEpisode, episodesRoot)
-renderPagination(episodesRoot, currentEpisode, document.getElementById('root'))
-
-/**
- * ? Como establecer la cantidad de páginas usando info de la API
- */
+renderEpisodes(1, episodesRoot)
+renderPagination(episodesRoot, 1, document.getElementById('root'))
