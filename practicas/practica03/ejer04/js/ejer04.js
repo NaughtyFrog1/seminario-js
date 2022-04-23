@@ -16,7 +16,7 @@ function handlePaginationClick(e, episodesNode) {
 }
 
 function renderEpisode({ name, air_date, episode }, parentNode) {
-  const li = createElement('li', { className: 'episode' }, parentNode)
+  const li = createElement('li', { className: 'episode glass' }, parentNode)
 
   createElement('h2', { className: 'episode__name', innerText: name }, li)
 
@@ -56,7 +56,7 @@ function renderPagination(episodesNode, curr, parentNode) {
     createElement(
       'button',
       {
-        className: `btn pagination__btn ${
+        className: `btn glass pagination__btn ${
           curr === i ? 'pagination__btn--selected' : ''
         }`,
         innerText: i,
