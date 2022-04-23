@@ -1,6 +1,6 @@
 import { createElement } from './helpers.js'
 
-const URL_EPISODES = 'https://rickandmortyapi.com/api/episode?page='
+const URL_EPISODES = 'https://rickandmortyapi.com/api/episode'
 
 function handlePaginationClick(e, episodesNode) {
   document
@@ -8,7 +8,7 @@ function handlePaginationClick(e, episodesNode) {
     .classList.remove('pagination__btn--selected')
 
   e.target.classList.add('pagination__btn--selected')
-  renderEpisodes(e.target.textContent, episodesNode)
+  renderEpisodesByPage(e.target.textContent, episodesNode)
 }
 
 function renderEpisode({ name, air_date, episode }, parentNode) {
@@ -29,16 +29,20 @@ function renderEpisode({ name, air_date, episode }, parentNode) {
   )
 }
 
-async function renderEpisodes(page, parentNode) {
-  const resp = await fetch(URL_EPISODES + page)
-  const data = await resp.json()
-
+async function renderEpisodes(episodes, parentNode) {
   parentNode.textContent = ''
 
   const container = createElement('div', { className: 'container' }, parentNode)
   const ul = createElement('ul', { className: 'episodes' }, container)
 
-  data.results.forEach((episodeData) => renderEpisode(episodeData, ul))
+  episodes.forEach((episodeData) => renderEpisode(episodeData, ul))
+}
+
+async function renderEpisodesByPage(page, parentNode) {
+  const resp = await fetch(`${URL_EPISODES}?page=${page}`)
+  const { results } = await resp.json()
+
+  renderEpisodes(results, parentNode)
 }
 
 async function renderPagination(episodesNode, curr, parentNode) {
@@ -67,5 +71,5 @@ async function renderPagination(episodesNode, curr, parentNode) {
 }
 
 const episodesRoot = createElement('div', {}, document.getElementById('root'))
-renderEpisodes(1, episodesRoot)
+renderEpisodesByPage(1, episodesRoot)
 renderPagination(episodesRoot, 1, document.getElementById('root'))
