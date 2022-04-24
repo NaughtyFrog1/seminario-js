@@ -3,9 +3,18 @@ import { createElement, fetchEpisodes } from './helpers.js'
 function renderEpisode({ name, air_date, episode }, parentNode) {
   const li = createElement('li', { className: 'episode glass' }, parentNode)
 
-  createElement('h2', { className: 'episode__name', innerText: name }, li)
+  const a = createElement(
+    'a',
+    {
+      href: `https://rickandmorty.fandom.com/wiki/${name.replace(' ', '_')}`,
+      target: '_blank',
+    },
+    li
+  )
 
-  const info = createElement('p', { className: 'episode__info' }, li)
+  createElement('h2', { className: 'episode__name', innerText: name }, a)
+
+  const info = createElement('p', { className: 'episode__info' }, a)
   createElement(
     'span',
     { className: 'episode__episode', innerText: episode },
@@ -65,7 +74,7 @@ function renderSearch(parentEpisodes, parentPagination, parentNode) {
     'button',
     {
       className: 'btn search__btn glass',
-      type: 'submit'
+      type: 'submit',
     },
     form
   )
@@ -96,7 +105,8 @@ function renderPagination(pages, name, episodesNode, parentNode) {
     createElement(
       'button',
       {
-        className: 'btn glass glass--sm pagination__btn pagination__btn--selected',
+        className:
+          'btn glass glass--sm pagination__btn pagination__btn--selected',
         innerText: 1,
         onclick: (e) => handlePaginationClick(e, episodesNode),
       },
