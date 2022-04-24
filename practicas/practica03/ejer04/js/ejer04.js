@@ -27,20 +27,99 @@ function renderEpisode({ name, air_date, episode }, parentNode) {
   )
 }
 
+function renderEmpty(parentNode) {
+  const container = createElement('div', { className: 'container' }, parentNode)
+
+  const noEpisodes = createElement(
+    'div',
+    { className: 'no-episodes glass' },
+    container
+  )
+
+  createElement(
+    'img',
+    {
+      className: 'no-episodes__gif',
+      src: 'img/notFound.gif',
+      alt: 'Existence is pain',
+    },
+    noEpisodes
+  )
+
+  const info = createElement('div', {}, noEpisodes)
+  createElement(
+    'h2',
+    {
+      className: 'episode__name',
+      textContent: 'Ooh okay, Jerry!',
+    },
+    info
+  )
+  createElement(
+    'p',
+    {
+      className: 'no-episodes__details',
+      textContent: "We couldn't find an episode with that name, Jerry!",
+    },
+    info
+  )
+  const meeseeks = createElement(
+    'div',
+    { className: 'no-episodes__meeseeks' },
+    info
+  )
+  createElement(
+    'p',
+    {
+      textContent:
+        "Aww, come on, Jerry, we've been over this. You know you got to do both! This is as frustrating for us as it is for you.",
+    },
+    meeseeks
+  )
+  createElement(
+    'p',
+    {
+      textContent:
+        "Uhh... Hey, Jerry, you mind if we get back to the task at hand? Meeseeks don't usually have to exist this long. It's getting weird.",
+    },
+    meeseeks
+  )
+  createElement(
+    'p',
+    {
+      textContent: "I can't take it anymore. I just want to die!",
+    },
+    meeseeks
+  )
+  createElement(
+    'p',
+    {
+      textContent:
+        "It's become clear-look at me- that if we concentrate all our efforts on Jerry's follow-through, we will solve this problem. I'm Mr. Meeseeks.",
+    },
+    meeseeks
+  )
+  createElement(
+    'p',
+    {
+      textContent:
+        'Meeseeks are not born into this world fumbling for meaning, Jerry! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a Meeseeks, Jerry. And we will do anything to alleviate that pain.',
+    },
+    meeseeks
+  )
+}
+
 function renderEpisodes(episodes, parentNode) {
   parentNode.textContent = ''
 
-  const container = createElement('div', { className: 'container' }, parentNode)
   if (episodes.length === 0) {
-    createElement(
-      'p',
-      {
-        className: 'no-episodes',
-        textContent: 'Ups... parece que no hay episodios con ese nombre',
-      },
-      container
-    )
+    renderEmpty(parentNode)
   } else {
+    const container = createElement(
+      'div',
+      { className: 'container' },
+      parentNode
+    )
     const ul = createElement('ul', { className: 'episodes' }, container)
     episodes.forEach((episodeData) => renderEpisode(episodeData, ul))
   }
