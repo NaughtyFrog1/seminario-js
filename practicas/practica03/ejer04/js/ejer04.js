@@ -1,6 +1,4 @@
-import { createElement } from './helpers.js'
-
-const URL_EPISODES = 'https://rickandmortyapi.com/api/episode'
+import { createElement, fetchEpisodes } from './helpers.js'
 
 function renderEpisode({ name, air_date, episode }, parentNode) {
   const li = createElement('li', { className: 'episode glass' }, parentNode)
@@ -65,12 +63,15 @@ function renderSearch(parentNode) {
 }
 
 function renderPagination(pages, episodesNode, parentNode) {
-  function handlePaginationClick(e, episodesNode) {
+  async function handlePaginationClick(e, episodesNode) {
+    const { episodes } = await fetchEpisodes(e.target.textContent)
+
     document
       .querySelector('.pagination__btn--selected')
       .classList.remove('pagination__btn--selected')
-
     e.target.classList.add('pagination__btn--selected')
+
+    renderEpisodes(episodes, episodesNode)
   }
 
   parentNode.textContent = ''
@@ -86,7 +87,7 @@ function renderPagination(pages, episodesNode, parentNode) {
       'button',
       {
         className: 'btn glass pagination__btn pagination__btn--selected',
-        innerText: i,
+        innerText: 1,
         onclick: (e) => handlePaginationClick(e, episodesNode),
       },
       pagination
@@ -105,3 +106,27 @@ function renderPagination(pages, episodesNode, parentNode) {
     }
   }
 }
+
+async function renderInit() {
+  const root = document.getElementById('root')
+  const { pages, episodes } = await fetchEpisodes(1)
+  renderSearch(root)
+
+  const episodesRoot = createElement('div', {}, root)
+  renderEpisodes(episodes, episodesRoot)
+
+  const paginationRoot = createElement('div', {}, root)
+  renderPagination(pages, episodesRoot, paginationRoot)
+}
+
+renderInit()
+
+/**
+ * ? Poner `handlePaginationClick` dentro de `renderPagination` para dar mejor
+ * ? legibilidad
+ *
+ * ? idem con `renderEpisode` y `renderEpisodes`
+ *
+ * ? Porque puedo inicializar búsqueda despues de form pero al pasarla como
+ * ? parámetro funciona
+ */

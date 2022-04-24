@@ -1,3 +1,5 @@
+const URL_EPISODES = 'https://rickandmortyapi.com/api/episode'
+
 /**
  * @param {keyof HTMLElementTagNameMap} tagName
  * @param {*} attributes
@@ -13,4 +15,14 @@ export function createElement(tagName, attributes = {}, parent) {
   else throw new Error('parent is not instance of HTMLElement')
 
   return element
+}
+
+export async function fetchEpisodes(page, name = '') {
+  const resp = await fetch(`${URL_EPISODES}?page=${page}&name=${name}`)
+  const data = await resp.json()
+
+  return {
+    pages: data.info.pages,
+    episodes: data.results
+  }
 }
