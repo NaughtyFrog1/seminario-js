@@ -31,6 +31,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .btn {
@@ -41,13 +42,13 @@ body {
 }
 
 .glass {
+  background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(15px);
   box-shadow: 0px 12px 16px -4px rgba(0, 0, 0, 0.3);
 }
 
 .glass--sm {
   backdrop-filter: blur(5px);
-  box-shadow: 0px 12px 16px -4px rgba(0, 0, 0, 0.3);
 }
 
 .episodes {
@@ -63,7 +64,6 @@ body {
 }
 
 .episode {
-  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -126,4 +126,50 @@ body {
 
 .pagination__btn--selected {
   background-color: rgba(255, 255, 255, 0.75);
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  font-size: 1.2em;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.search__input {
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  width: 80%;
+  transition: 0.25s ease-in-out; 
+}
+
+.search__input::placeholder {
+  color: #333;
+}
+
+.search__input:focus {
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0px 20px 24px -6px rgba(0, 0, 0, 0.3);
+}
+
+.search__btn {
+  transition: 
+    0.25s ease-in-out background-color, 
+    0.12s ease-in-out box-shadow;
+}
+
+.search__btn:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.search__btn:active {
+  box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.3);
+}
+
+.search__btn img {
+  display: block;
+  width: 1em;
+  height: 1em;
 }

@@ -48,28 +48,28 @@ function renderSearch(parentEpisodes, parentPagination, parentNode) {
 
   const form = createElement(
     'form',
-    { className: 'busqueda', onsubmit: (e) => handleSubmit(e, search) },
+    { className: 'search container', onsubmit: (e) => handleSubmit(e, search) },
     parentNode
   )
   const search = createElement(
     'input',
     {
-      className: 'busqueda__input',
+      className: 'search__input glass',
       placeholder: 'Ingrese el nombre de un episodio...',
       type: 'text',
       value: '',
     },
     form
   )
-  createElement(
-    'input',
+  const btn = createElement(
+    'button',
     {
-      className: 'btn busqueda__btn',
-      type: 'submit',
-      value: 'Buscar',
+      className: 'btn search__btn glass',
+      type: 'submit'
     },
     form
   )
+  createElement('img', { src: 'img/search.svg', alt: 'search' }, btn)
 }
 
 function renderPagination(pages, name, episodesNode, parentNode) {
@@ -96,7 +96,7 @@ function renderPagination(pages, name, episodesNode, parentNode) {
     createElement(
       'button',
       {
-        className: 'btn glass--sm pagination__btn pagination__btn--selected',
+        className: 'btn glass glass--sm pagination__btn pagination__btn--selected',
         innerText: 1,
         onclick: (e) => handlePaginationClick(e, episodesNode),
       },
@@ -107,7 +107,7 @@ function renderPagination(pages, name, episodesNode, parentNode) {
       createElement(
         'button',
         {
-          className: 'btn glass--sm pagination__btn',
+          className: 'btn glass glass--sm pagination__btn',
           innerText: i,
           onclick: (e) => handlePaginationClick(e, episodesNode),
         },
