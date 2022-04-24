@@ -96,7 +96,7 @@ function renderPagination(pages, name, episodesNode, parentNode) {
     createElement(
       'button',
       {
-        className: 'btn glass pagination__btn pagination__btn--selected',
+        className: 'btn glass--sm pagination__btn pagination__btn--selected',
         innerText: 1,
         onclick: (e) => handlePaginationClick(e, episodesNode),
       },
@@ -107,7 +107,7 @@ function renderPagination(pages, name, episodesNode, parentNode) {
       createElement(
         'button',
         {
-          className: 'btn glass pagination__btn',
+          className: 'btn glass--sm pagination__btn',
           innerText: i,
           onclick: (e) => handlePaginationClick(e, episodesNode),
         },
