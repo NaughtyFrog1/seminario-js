@@ -22,18 +22,28 @@ function renderEpisodes(episodes, parentNode) {
   parentNode.textContent = ''
 
   const container = createElement('div', { className: 'container' }, parentNode)
-  const ul = createElement('ul', { className: 'episodes' }, container)
-
-  episodes.forEach((episodeData) => renderEpisode(episodeData, ul))
+  if (episodes.length === 0) {
+    createElement(
+      'p',
+      {
+        className: 'no-episodes',
+        textContent: 'Ups... parece que no hay episodios con ese nombre',
+      },
+      container
+    )
+  } else {
+    const ul = createElement('ul', { className: 'episodes' }, container)
+    episodes.forEach((episodeData) => renderEpisode(episodeData, ul))
+  }
 }
 
-function renderSearch(parentNode) {
-  function handleSubmit(e, search) {
+function renderSearch(parentEpisodes, parentPagination, parentNode) {
+  async function handleSubmit(e, search) {
     e.preventDefault()
-
     const searchValue = search.value.trim()
-
-    console.log(searchValue)
+    const { pages, episodes } = await fetchEpisodes(1, searchValue)
+    renderEpisodes(episodes, parentEpisodes)
+    renderPagination(pages, searchValue, parentEpisodes, parentPagination)
   }
 
   const form = createElement(
@@ -62,9 +72,9 @@ function renderSearch(parentNode) {
   )
 }
 
-function renderPagination(pages, episodesNode, parentNode) {
+function renderPagination(pages, name, episodesNode, parentNode) {
   async function handlePaginationClick(e, episodesNode) {
-    const { episodes } = await fetchEpisodes(e.target.textContent)
+    const { episodes } = await fetchEpisodes(e.target.textContent, name)
 
     document
       .querySelector('.pagination__btn--selected')
@@ -108,15 +118,19 @@ function renderPagination(pages, episodesNode, parentNode) {
 }
 
 async function renderInit() {
-  const root = document.getElementById('root')
   const { pages, episodes } = await fetchEpisodes(1)
-  renderSearch(root)
 
-  const episodesRoot = createElement('div', {}, root)
+  const root = document.getElementById('root')
+  const episodesRoot = createElement('div', {})
+  const paginationRoot = createElement('div', {})
+
+  renderSearch(episodesRoot, paginationRoot, root)
+
+  root.appendChild(episodesRoot)
+  root.appendChild(paginationRoot)
+
   renderEpisodes(episodes, episodesRoot)
-
-  const paginationRoot = createElement('div', {}, root)
-  renderPagination(pages, episodesRoot, paginationRoot)
+  renderPagination(pages, '', episodesRoot, paginationRoot)
 }
 
 renderInit()
@@ -129,4 +143,6 @@ renderInit()
  *
  * ? Porque puedo inicializar búsqueda despues de form pero al pasarla como
  * ? parámetro funciona
+ *
+ * ? Por que muestra el 404, aunque haga un try catch
  */

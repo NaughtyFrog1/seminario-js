@@ -23,7 +23,7 @@ export async function fetchEpisodes(page, name = '') {
   const data = await resp.json()
 
   return {
-    pages: data.info.pages,
-    episodes: data.results
+    pages: data?.info?.pages ?? 0,
+    episodes: data?.results ?? [],
   }
 }
