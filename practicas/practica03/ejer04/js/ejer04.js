@@ -63,3 +63,45 @@ function renderSearch(parentNode) {
     form
   )
 }
+
+function renderPagination(pages, episodesNode, parentNode) {
+  function handlePaginationClick(e, episodesNode) {
+    document
+      .querySelector('.pagination__btn--selected')
+      .classList.remove('pagination__btn--selected')
+
+    e.target.classList.add('pagination__btn--selected')
+  }
+
+  parentNode.textContent = ''
+
+  const pagination = createElement(
+    'div',
+    { className: 'pagination' },
+    parentNode
+  )
+
+  if (pages > 1) {
+    createElement(
+      'button',
+      {
+        className: 'btn glass pagination__btn pagination__btn--selected',
+        innerText: i,
+        onclick: (e) => handlePaginationClick(e, episodesNode),
+      },
+      pagination
+    )
+
+    for (let i = 2; i <= pages; i++) {
+      createElement(
+        'button',
+        {
+          className: 'btn glass pagination__btn',
+          innerText: i,
+          onclick: (e) => handlePaginationClick(e, episodesNode),
+        },
+        pagination
+      )
+    }
+  }
+}
