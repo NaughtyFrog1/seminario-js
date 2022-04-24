@@ -12,7 +12,8 @@ export function createElement(tagName, attributes = {}, parent) {
   Object.keys(attributes).forEach((attr) => (element[attr] = attributes[attr]))
 
   if (parent instanceof HTMLElement) parent.appendChild(element)
-  else throw new Error('parent is not instance of HTMLElement')
+  else if (parent !== undefined)
+    new Error('parent is not instance of HTMLElement')
 
   return element
 }
