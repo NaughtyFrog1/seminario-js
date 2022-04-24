@@ -28,3 +28,38 @@ function renderEpisodes(episodes, parentNode) {
 
   episodes.forEach((episodeData) => renderEpisode(episodeData, ul))
 }
+
+function renderSearch(parentNode) {
+  function handleSubmit(e, search) {
+    e.preventDefault()
+
+    const searchValue = search.value.trim()
+
+    console.log(searchValue)
+  }
+
+  const form = createElement(
+    'form',
+    { className: 'busqueda', onsubmit: (e) => handleSubmit(e, search) },
+    parentNode
+  )
+  const search = createElement(
+    'input',
+    {
+      className: 'busqueda__input',
+      placeholder: 'Ingrese el nombre de un episodio...',
+      type: 'text',
+      value: '',
+    },
+    form
+  )
+  createElement(
+    'input',
+    {
+      className: 'btn busqueda__btn',
+      type: 'submit',
+      value: 'Buscar',
+    },
+    form
+  )
+}
