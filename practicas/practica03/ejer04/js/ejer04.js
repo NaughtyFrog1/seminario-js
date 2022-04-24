@@ -51,7 +51,7 @@ function renderEmpty(parentNode) {
     'h2',
     {
       className: 'episode__name',
-      textContent: 'Ooh okay, Jerry!',
+      textContent: 'Ooh. Okay, Jerry!',
     },
     info
   )
@@ -95,7 +95,7 @@ function renderEmpty(parentNode) {
     'p',
     {
       textContent:
-        "It's become clear-look at me- that if we concentrate all our efforts on Jerry's follow-through, we will solve this problem. I'm Mr. Meeseeks.",
+        "It's become clear -look at me- that if we concentrate all our efforts on Jerry's follow-through, we will solve this problem. I'm Mr. Meeseeks.",
     },
     meeseeks
   )
