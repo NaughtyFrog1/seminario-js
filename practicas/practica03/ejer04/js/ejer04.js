@@ -51,7 +51,7 @@ function renderEmpty(parentNode) {
     'h2',
     {
       className: 'episode__name',
-      textContent: 'Ooh. Okay, Jerry!',
+      textContent: 'Ooh... Okay, Jerry!',
     },
     info
   )
