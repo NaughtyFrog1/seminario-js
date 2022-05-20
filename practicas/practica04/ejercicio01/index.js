@@ -1,4 +1,10 @@
+/*
+Leer y escribir archivos JSON con Node.js
+https://pharos.sh/leer-y-escribir-archivos-json-con-node-js/
+*/
+
 const express = require('express')
+const fs = require('fs')
 const app = express()
 
 const PORT = 3000
@@ -14,11 +20,15 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  const EMAIL = 'admin@mail.com'
-  const PASS = '1234'
+  function isAValidUser(email, pass) {
+    const users = JSON.parse(fs.readFileSync('./data/usuarios.json'))
+    return users.some(
+      ({ username, password }) => username === email && password === pass
+    )
+  }
 
   const { email, pass } = req.body
-  res.redirect(email === EMAIL && pass === PASS ? '/success.html' : '/')
+  res.redirect(isAValidUser(email, pass) ? '/success.html' : '/')
 })
 
 // Abrir servidor
