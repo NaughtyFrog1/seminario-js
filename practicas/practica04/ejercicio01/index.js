@@ -3,9 +3,6 @@ const app = express()
 
 const PORT = 3000
 
-const EMAIL = 'admin@mail.com'
-const PASS = '1234'
-
 // Indicamos la ubicación de los archivos estáticos
 app.use(express.static('public'))
 // Usamos el midleware de express para manejar la información
@@ -17,6 +14,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+  const EMAIL = 'admin@mail.com'
+  const PASS = '1234'
+
   const { email, pass } = req.body
   res.redirect(email === EMAIL && pass === PASS ? '/success.html' : '/')
 })
