@@ -48,6 +48,18 @@ app.get('/people_by_age', (req, res) => {
   res.json(persons.map(({name, dob}) => ({[name]: getAge(new Date(dob))})))
 })
 
+/**
+ * Devuelve en formato JSON un arreglo con el IMC de los mayores de 40
+ */
+ app.get('/imc_over_40', (req, res) => {
+  const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
+  const arr = []
+  persons.forEach(({ dob, height, weight }) => {
+    if (getAge(new Date(dob)) > 40) arr.push(getImc(height, weight))
+  })
+  res.json(arr)
+})
+
 app.listen(PORT, () => {
   console.log('\n', `Server listening on port http://localhost:${PORT}`, '\n\n')
 })
