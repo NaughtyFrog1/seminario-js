@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Alice",
+    "dob": "2001-04-04",
+    "height": "165",
+    "weight": "68"
+  },
+  {
+    "name": "Robert",
+    "dob": "1997-01-31",
+    "height": "170",
+    "weight": "88"
+  },
+  {
+    "name": "Charles",
+    "dob": "1978-10-15",
+    "height": "188",
+    "weight": "102"
+  },
+  {
+    "name": "Lucy",
+    "dob": "1955-08-07",
+    "height": "155",
+    "weight": "61"
+  },
+  {
+    "name": "Peter",
+    "dob": "1988-03-09",
+    "height": "165",
+    "weight": "99"
+  },
+  {
+    "name": "Luke",
+    "dob": "1910-12-04",
+    "height": "172",
+    "weight": "75"
+  }
+]
