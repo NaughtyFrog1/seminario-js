@@ -1,6 +1,6 @@
 /*
-Leer y escribir archivos JSON con Node.js
-https://pharos.sh/leer-y-escribir-archivos-json-con-node-js/
+  Leer y escribir archivos JSON con Node.js
+  https://pharos.sh/leer-y-escribir-archivos-json-con-node-js/
 */
 
 const express = require('express')
@@ -31,10 +31,31 @@ app.post('/login', (req, res) => {
   res.redirect(isAValidUser(email, pass) ? '/success.html' : '/')
 })
 
+app.get('/names', (req, res) => {
+  if (req.query.hasOwnProperty('username')) {
+    const usersData = JSON.parse(fs.readFileSync('./data/usuarios.json'))
+    const usernameQuery = req.query.username
+
+    if (Array.isArray(usernameQuery)) {
+      const users = []
+      usersData.forEach((user) => {
+        if (usernameQuery.includes(user.username)) users.push({ name: user.name })
+      })
+      res.send(JSON.stringify(users))
+    } else {
+      const user = usersData.find(({ username }) => usernameQuery === username)
+      res.send(JSON.stringify(user === undefined ? {} : { name: user.name }))
+    }
+  } else {
+    res.send('Invalid query')
+  }
+})
+
 // Abrir servidor
-app.listen(PORT, () =>
+app.listen(PORT, () => {
+  console.clear()
   console.log(`Server listening on port http://localhost:${PORT}`)
-)
+})
 
 /*
   app.use indica que componentes de express se usan. Se usa para darle 
@@ -44,7 +65,6 @@ app.listen(PORT, () =>
   recibe el servidor. Hacen una función del servidor.
 
   El servidor acciona en el request y el response
-
 
   En este caso usamos express.urlencoded para procesar la información del
   formulario. Automáticamente express sabe que cuando recibe un método POST debe
