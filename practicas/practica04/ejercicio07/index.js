@@ -25,7 +25,7 @@ app.get('/overweight_people', (req, res) => {
   const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
   const arr = []
   persons.forEach(({ name, height, weight }) => {
-    if (getImc(height, weight) > 25) arr.push({ name })
+    if (getImc(height, weight) > 25) arr.push(name)
   })
   res.json(arr)
 })
