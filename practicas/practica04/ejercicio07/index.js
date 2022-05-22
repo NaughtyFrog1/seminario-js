@@ -76,10 +76,21 @@ app.get('/average_imc', (req, res) => {
  */
 app.get('/youngest', (req, res) => {
   const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
+  res.json(
+    persons.reduce((max, person) =>
+      new Date(person.dob).getTime() > new Date(max.dob).getTime()
+        ? person
+        : max
+    )
+  )
+})
 
-  res.json(persons.reduce((max, person) =>
-    new Date(person.dob).getTime() > new Date(max.dob).getTime() ? person : max
-  ))
+/**
+ * Devuelve en formato JSON un arreglo de personas ordenadas por estatura
+ */
+app.get('/people_by_height', (req, res) => {
+  const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
+  res.json(persons.sort((a, b) => a.height - b.height))
 })
 
 app.listen(PORT, () => {
