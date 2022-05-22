@@ -71,6 +71,17 @@ app.get('/average_imc', (req, res) => {
   res.json({ avg: totalImc / persons.length })
 })
 
+/**
+ * Devuelve en formato JSON la persona más joven
+ */
+app.get('/youngest', (req, res) => {
+  const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
+
+  res.json(persons.reduce((max, person) =>
+    new Date(person.dob).getTime() > new Date(max.dob).getTime() ? person : max
+  ))
+})
+
 app.listen(PORT, () => {
   console.log('\n', `Server listening on port http://localhost:${PORT}`, '\n\n')
 })
