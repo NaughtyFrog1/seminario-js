@@ -8,7 +8,6 @@ const PORT = 3000
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 
-
 function getImc(height, weight) {
   return (parseInt(weight) / parseInt(height) ** 2) * 10000
 }
@@ -45,19 +44,31 @@ app.get('/overweight_people', (req, res) => {
  */
 app.get('/people_by_age', (req, res) => {
   const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
-  res.json(persons.map(({name, dob}) => ({[name]: getAge(new Date(dob))})))
+  res.json(persons.map(({ name, dob }) => ({ [name]: getAge(new Date(dob)) })))
 })
 
 /**
  * Devuelve en formato JSON un arreglo con el IMC de los mayores de 40
  */
- app.get('/imc_over_40', (req, res) => {
+app.get('/imc_over_40', (req, res) => {
   const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
   const arr = []
   persons.forEach(({ dob, height, weight }) => {
     if (getAge(new Date(dob)) > 40) arr.push(getImc(height, weight))
   })
   res.json(arr)
+})
+
+/**
+ * Devuelve en formato JSON el IMC promedio de todas las personas
+ */
+app.get('/average_imc', (req, res) => {
+  const persons = JSON.parse(fs.readFileSync('./data/persons.json'))
+  const totalImc = persons.reduce(
+    (acc, { height, weight }) => acc + getImc(height, weight),
+    0
+  )
+  res.json({ avg: totalImc / persons.length })
 })
 
 app.listen(PORT, () => {
