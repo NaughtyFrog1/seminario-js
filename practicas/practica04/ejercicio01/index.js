@@ -44,10 +44,10 @@ app.get('/names', (req, res) => {
       res.send(JSON.stringify(users))
     } else {
       const user = usersData.find(({ username }) => usernameQuery === username)
-      res.send(JSON.stringify(user === undefined ? {} : { name: user.name }))
+      res.json((user === undefined ? {} : { name: user.name }))
     }
   } else {
-    res.send('Invalid query')
+    res.status(400).send('Invalid query')
   }
 })
 
