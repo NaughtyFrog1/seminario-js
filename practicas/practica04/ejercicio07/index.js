@@ -96,3 +96,14 @@ app.get('/people_by_height', (req, res) => {
 app.listen(PORT, () => {
   console.log('\n', `Server listening on port http://localhost:${PORT}`, '\n\n')
 })
+
+
+/**
+ * Constante para la ruta del archivo
+ * 
+ * Usar un modulo con toda la lógica y el index solo con la parte de express
+ * 
+ * app.get('/average_imc', (...) => {
+ *   res.json(getAvgImc())
+ * })
+ */
